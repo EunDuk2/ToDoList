@@ -8,15 +8,15 @@
 import Foundation
 
 class Day {
-    var date:Date
+    var date:DateFormatter
     var doing:[Doing] = []
     
-    init(date: Date) {
+    init(date: DateFormatter) {
         self.date = date
     }
     
     func addContent(content:String) {
-        doing.append(Doing(checkBool: false, dayContent: ""))
+        doing.append(Doing(checkBool: false, dayContent: content))
     }
 }
 
