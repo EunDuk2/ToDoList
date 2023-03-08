@@ -22,10 +22,13 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         let DatePick = ud.string(forKey: "DatePick")
-        let Doing = ud.string(forKey: "Doing")
+        //let Doing = ud.string(forKey: "Doing")
         
         lblToDo.text = DatePick
-        lblToDo2.text = Doing
+        //lblToDo2.text = Doing
+        
+        let DoingList = ud.array(forKey: "arr")
+        lblToDo2.text = (DoingList as? String)
         
     }
     
