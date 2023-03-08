@@ -12,6 +12,8 @@ class ViewController: UIViewController {
     
     @IBOutlet var lblToDo: UILabel!
     
+    @IBOutlet var lblToDo2: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -20,8 +22,11 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         let DatePick = ud.string(forKey: "DatePick")
+        let Doing = ud.string(forKey: "Doing")
         
         lblToDo.text = DatePick
+        lblToDo2.text = Doing
+        
     }
     
 }
