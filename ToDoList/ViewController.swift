@@ -8,29 +8,22 @@
 import UIKit
 
 class ViewController: UIViewController {
-    var day:[Day] = []
+    let ud = UserDefaults.standard
     
-    @IBOutlet var testLabel: UILabel!
-    
-    @IBOutlet var testLabel2: UILabel!
-    @IBOutlet var txtContent: UITextField!
+    @IBOutlet var lblToDo: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
-        test()
+      
     }
-    func test() {
-        day.append(Day(date: DateFormatter()))
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let DatePick = ud.string(forKey: "DatePick")
         
+        lblToDo.text = DatePick
     }
-
-    @IBAction func acBtnOk(_ sender: UIButton) {
-        day[0].addContent(content: txtContent.text!)
-        
-        testLabel2.text = day[0].doing[0].dayContent
-    }
+    
 }
 
 
