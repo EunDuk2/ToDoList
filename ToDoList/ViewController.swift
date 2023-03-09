@@ -8,10 +8,13 @@
 import UIKit
 
 class ViewController: UIViewController {
+    var doing:[Day] = []
     let ud = UserDefaults.standard
+    var formatter = DateFormatter()
+    
+    var today:String?
     
     @IBOutlet var lblToDo: UILabel!
-    
     @IBOutlet var lblToDo2: UILabel!
     
     override func viewDidLoad() {
@@ -21,23 +24,42 @@ class ViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        let DatePick = ud.string(forKey: "DatePick")
-        //let Doing = ud.string(forKey: "Doing")
+        formatter.dateFormat = "yyyyMMdd"
+        today = formatter.string(from: Date())
         
-        lblToDo.text = DatePick
-        //lblToDo2.text = Doing
-        
-        if let DoingList = ud.stringArray(forKey: "arr") {
-        
-            var List: String = ""
-            for i in 0..<DoingList.count {
-                List += (DoingList[i] + "\n")
-            }
-            lblToDo2.text = List
+        doing = getDoing()
+        if(checkKey() != -1) {
+            lblToDo.text = doing[checkKey()].date
+            outputDoing()
         }
+        
         
     }
     
+    func getDoing() -> [Day] {
+        guard let savedData = ud.value(forKey: "day") as? Data,
+                    let loadDoing = try? PropertyListDecoder().decode([Day].self, from: savedData) else { return [] }
+                    return loadDoing
+    }
+    
+    func checkKey() -> Int {
+        for i in 0..<doing.count {
+            if(doing[i].key == today) {
+                return i
+            }
+        }
+        return -1
+    }
+    
+    func outputDoing() {
+        doing = getDoing()
+        
+        if(checkKey() != -1) {
+            lblToDo2.text = doing[checkKey()].outputDoing()
+        } else {
+            lblToDo2.text = ""
+        }
+    }
 }
 
 

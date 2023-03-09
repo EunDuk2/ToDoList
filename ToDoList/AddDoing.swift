@@ -13,14 +13,7 @@ class AddDoing : UIViewController {
     @IBOutlet var lblList: UILabel!
     
     override func viewWillAppear(_ animated: Bool) {
-        
-//        if let DoingList = ud.stringArray(forKey: "arr") {
-//            var List: String = ""
-//            for i in 0..<DoingList.count {
-//                List += (DoingList[i] + "\n")
-//            }
-//            lblList.text = List
-//        }
+
         DatePicker_()
         outputDoing()
         
@@ -74,8 +67,7 @@ class AddDoing : UIViewController {
         
         dateFormat.dateFormat = "yyyyMMdd"
         dateKey = dateFormat.string(from: DatePick.date)
-        
-        //ud.set(stringDate, forKey: "DatePick")
+
         outputDoing()
     }
     
@@ -91,23 +83,7 @@ class AddDoing : UIViewController {
     
     
     @IBAction func onAdd(_ sender: Any) {
-//        if let arr = ud.stringArray(forKey: "arr") {
-//            self.arr = arr
-//        }
-//        arr.append(txtDoing.text!)
-//
-//        ud.set(arr, forKey: "arr")
-//
-//        viewWillAppear(true)
-        
-//        for i in 0..<doing.count {
-//            if (checkKey(i: i) == true) {
-//                    doing[i].addDoing(Doing: txtDoing.text!)
-//            } else if (i == doing.count-1) {
-//                doing.append(Day(key: dateKey, date: stringDate))
-//                doing[i].addDoing(Doing: txtDoing.text!)
-//            }
-//        }
+
         let i = checkKey()
         if (i != -1) {
             doing[i].addDoing(Doing: txtDoing.text!)
@@ -129,10 +105,6 @@ class AddDoing : UIViewController {
     }
     
     @IBAction func arrInit(_ sender: Any) {
-//        if var arr = ud.stringArray(forKey: "arr") {
-//            arr = []
-//            ud.set(arr, forKey: "arr")
-//        }
         doing = []
         ud.set(try? PropertyListEncoder().encode(doing), forKey: "day")
     }
