@@ -9,15 +9,15 @@ class AddDoing : UIViewController {
     @IBOutlet var lblList: UILabel!
     
     override func viewWillAppear(_ animated: Bool) {
-        // let DatePick = ud.string(forKey: "DatePick")
-//        let Doing = ud.string(forKey: "Doing")
-//
-//        lblList.text = Doing
         
         if let DoingList = ud.stringArray(forKey: "arr") {
-            lblList.text = DoingList[4]
-            // 여기까지 함
+            var List: String = ""
+            for i in 0..<DoingList.count {
+                List += (DoingList[i] + "\n")
+            }
+            lblList.text = List
         }
+        
     }
     
     @IBAction func DatePicker(_ sender: UIDatePicker) {
@@ -40,10 +40,7 @@ class AddDoing : UIViewController {
         
         ud.set(arr, forKey: "arr")
         
-        // 옵셔널 바인딩
-        if let DoingList = ud.stringArray(forKey: "arr") {
-            lblList.text = DoingList[1]
-        }
+        viewWillAppear(true)
         
     }
     
@@ -52,5 +49,13 @@ class AddDoing : UIViewController {
         
         self.presentingViewController?.dismiss(animated: true)
     }
+    
+    @IBAction func arrInit(_ sender: Any) {
+        if var arr = ud.stringArray(forKey: "arr") {
+            arr = []
+            ud.set(arr, forKey: "arr")
+        }
+    }
+    
     
 }

@@ -27,8 +27,14 @@ class ViewController: UIViewController {
         lblToDo.text = DatePick
         //lblToDo2.text = Doing
         
-        let DoingList = ud.array(forKey: "arr")
-        lblToDo2.text = (DoingList as? String)
+        if let DoingList = ud.stringArray(forKey: "arr") {
+        
+            var List: String = ""
+            for i in 0..<DoingList.count {
+                List += (DoingList[i] + "\n")
+            }
+            lblToDo2.text = List
+        }
         
     }
     
