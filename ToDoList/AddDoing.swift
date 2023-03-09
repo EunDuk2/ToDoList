@@ -9,7 +9,7 @@ class AddDoing : UIViewController {
     var arr:[String] = []
     
     @IBOutlet var txtDoing: UITextField!
-    
+    @IBOutlet var datePick: UIDatePicker!
     @IBOutlet var lblList: UILabel!
     
     override func viewWillAppear(_ animated: Bool) {
@@ -21,7 +21,7 @@ class AddDoing : UIViewController {
 //            }
 //            lblList.text = List
 //        }
-        
+        DatePicker_()
         outputDoing()
         
     }
@@ -77,6 +77,16 @@ class AddDoing : UIViewController {
         
         //ud.set(stringDate, forKey: "DatePick")
         outputDoing()
+    }
+    
+    func DatePicker_() {
+        let DatePick = datePick
+        
+        let dateFormat = DateFormatter()
+        dateFormat.dateFormat = "yyyyMMdd"
+        if let dk = DatePick?.date {
+            dateKey = dateFormat.string(from: dk)
+        }
     }
     
     

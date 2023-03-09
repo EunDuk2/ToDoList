@@ -113,6 +113,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <connections>
+                        <outlet property="datePick" destination="Uau-Bd-HQr" id="hLy-tR-UFa"/>
                         <outlet property="lblList" destination="b4w-Nn-6pv" id="xcT-d4-IJ2"/>
                         <outlet property="txtDoing" destination="GE3-xV-BBO" id="b5K-Rr-A9E"/>
                     </connections>
