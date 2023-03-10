@@ -12,6 +12,13 @@ class AddDoing : UIViewController {
     @IBOutlet var datePick: UIDatePicker!
     @IBOutlet var lblList: UILabel!
     
+    override func viewDidLoad() {
+        let dateFormat = DateFormatter()
+        dateFormat.dateFormat = "MM월 dd일"
+        
+        stringDate = dateFormat.string(from: datePick.date)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
 
         DatePicker_()
