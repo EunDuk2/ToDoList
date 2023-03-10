@@ -108,7 +108,8 @@ class AddDoing : UIViewController {
         ud.set(try? PropertyListEncoder().encode(doing), forKey: "day")
         
         outputDoing()
-        
+    
+        txtDoing.text = ""
     }
     
     @IBAction func Submit(_ sender: Any) {
