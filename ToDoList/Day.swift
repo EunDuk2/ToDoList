@@ -21,6 +21,10 @@ class Day: Codable {
         doing.append(Doing)
     }
     
+    func outputDate() -> String {
+        return date!
+    }
+    
     func outputDoing() -> String {
         var List: String = ""
         for i in 0..<doing.count {
@@ -28,6 +32,7 @@ class Day: Codable {
         }
         return List
     }
+    
     
     
 }

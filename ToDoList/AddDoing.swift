@@ -54,7 +54,12 @@ class AddDoing : UIViewController {
         } else {
             lblList.text = ""
         }
+        
         //test()
+    }
+    
+    func sortDoing() {
+        doing.sort(by: {$0.key! < $1.key!})
     }
     
     @IBAction func DatePicker(_ sender: UIDatePicker) {
@@ -92,6 +97,7 @@ class AddDoing : UIViewController {
             doing[doing.count-1].addDoing(Doing: txtDoing.text!)
         }
         
+        sortDoing()
         ud.set(try? PropertyListEncoder().encode(doing), forKey: "day")
         
         outputDoing()
