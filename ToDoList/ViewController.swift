@@ -31,10 +31,6 @@ class ViewController: UIViewController {
         
     }
     
-    func selectedDate() {
-        
-    }
-    
     func todayDoing() {
         formatter.dateFormat = "yyyyMMdd"
         today = formatter.string(from: Date())
@@ -74,16 +70,25 @@ class ViewController: UIViewController {
     
     @IBAction func onBack(_ sender: Any) {
         doing = getDoing()
-        index -= 1
-        outputDay(i: index)
+        if(index > 0) {
+            index -= 1
+            outputDay(i: index)
+        }
         
     }
     
     @IBAction func onNext(_ sender: Any) {
         doing = getDoing()
-        index += 1
-        outputDay(i: index)
+        if(index < doing.count-1) {
+            index += 1
+            outputDay(i: index)
+        }
     }
+    
+    @IBAction func onToday(_ sender: Any) {
+        todayDoing()
+    }
+    
     
 }
 
