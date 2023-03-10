@@ -121,6 +121,7 @@ class AddDoing : UIViewController {
     @IBAction func arrInit(_ sender: Any) {
         doing = []
         ud.set(try? PropertyListEncoder().encode(doing), forKey: "day")
+        lblList.text = ""
     }
     
     
