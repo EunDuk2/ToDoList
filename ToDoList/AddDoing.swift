@@ -113,14 +113,11 @@ class AddDoing : UIViewController {
     }
     
     @IBAction func Submit(_ sender: Any) {
-        ud.set(self.txtDoing.text, forKey: "Doing")
-        
         self.presentingViewController?.dismiss(animated: true)
     }
     
     @IBAction func arrInit(_ sender: Any) {
-        doing = []
-        ud.set(try? PropertyListEncoder().encode(doing), forKey: "day")
+        ud.removeObject(forKey: "day")
         lblList.text = ""
     }
     
