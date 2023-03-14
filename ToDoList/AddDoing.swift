@@ -20,6 +20,7 @@ class AddDoing : UIViewController, UITableViewDataSource, UITableViewDelegate {
         dateFormat.dateFormat = "MM월 dd일"
         
         stringDate = dateFormat.string(from: datePick.date)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -135,9 +136,18 @@ class AddDoing : UIViewController, UITableViewDataSource, UITableViewDelegate {
         }
     }
     
-//    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
-//        return "삭제"
-//    }
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "삭제"
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+        let itemToMove = doing[checkKey()].doingList[(fromIndexPath as NSIndexPath).row]
+        
+        doing[checkKey()].doingList.remove(at: (fromIndexPath as NSIndexPath).row)
+        
+        doing[checkKey()].doingList.insert(itemToMove, at: (to as NSIndexPath).row)
+        
+    }
     
 
     @IBAction func onAdd(_ sender: Any) {
@@ -168,5 +178,32 @@ class AddDoing : UIViewController, UITableViewDataSource, UITableViewDelegate {
         lblList.text = ""
     }
     
+    @IBAction func edit(_ sender: UIBarButtonItem) {
+        if table.isEditing {
+            sender.title = "Edit"
+            table.setEditing(false, animated: true)
+        } else {
+            sender.title = "Done"
+            table.setEditing(true, animated: true)
+        }
+    }
+    var hidden1 = false
+
+    override func setEditing(_ editing: Bool, animated: Bool) {
+            super.setEditing(editing, animated: animated)
+
+            print("edit")
+            if self.table.isEditing {
+
+                        self.table.setEditing(false, animated: true)
+                hidden1 = false
+                    } else {
+
+                        self.table.setEditing(true, animated: true)
+                    hidden1 = true
+                    }
+            self.table.reloadData()
+
+        }
     
 }
