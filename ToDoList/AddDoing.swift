@@ -97,6 +97,11 @@ class AddDoing : UIViewController, UITableViewDataSource, UITableViewDelegate {
         }
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         doing = getDoing()
         
@@ -116,6 +121,23 @@ class AddDoing : UIViewController, UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            doing[checkKey()].doingList.remove(at: (indexPath as NSIndexPath).row)
+            //itemsImageFile.remove(at: (indexPath as NSIndexPath).row)
+            ud.set(try? PropertyListEncoder().encode(doing), forKey: "day")
+
+            tableView.deleteRows(at: [indexPath], with: .fade)
+
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }
+    }
+    
+//    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+//        return "삭제"
+//    }
     
 
     @IBAction func onAdd(_ sender: Any) {
