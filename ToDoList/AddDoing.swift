@@ -1,6 +1,8 @@
+// 이모티콘 단축키: ctrl + command + spacebar
 import UIKit
 
-class AddDoing : UIViewController {
+class AddDoing : UIViewController, UITableViewDataSource, UITableViewDelegate {
+
     var doing:[Day] = []
     var stringDate: String = ""
     var dateKey: String = ""
@@ -8,6 +10,7 @@ class AddDoing : UIViewController {
     let ud = UserDefaults.standard
     var arr:[String] = []
     
+    @IBOutlet var table: UITableView!
     @IBOutlet var txtDoing: UITextField!
     @IBOutlet var datePick: UIDatePicker!
     @IBOutlet var lblList: UILabel!
@@ -61,7 +64,7 @@ class AddDoing : UIViewController {
         } else {
             lblList.text = ""
         }
-        
+
         //test()
     }
     
@@ -81,6 +84,7 @@ class AddDoing : UIViewController {
         dateKey = dateFormat.string(from: DatePick.date)
 
         outputDoing()
+        table.reloadData()
     }
     
     func DatePicker_() {
@@ -93,7 +97,27 @@ class AddDoing : UIViewController {
         }
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        doing = getDoing()
+        
+        if (checkKey() != -1) {
+            return doing[checkKey()].doingList.count
+        }
+        return 0
+    }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let row = self.doing[checkKey()].doingList[indexPath.row]
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "DoingCell") as! DoingCell
+        
+        cell.lblDoing?.text = row
+        
+        return cell
+    }
+    
+    
+
     @IBAction func onAdd(_ sender: Any) {
 
         let i = checkKey()
@@ -108,7 +132,8 @@ class AddDoing : UIViewController {
         ud.set(try? PropertyListEncoder().encode(doing), forKey: "day")
         
         outputDoing()
-    
+        table.reloadData()
+        
         txtDoing.text = ""
     }
     

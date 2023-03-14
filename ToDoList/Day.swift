@@ -10,7 +10,7 @@ import Foundation
 class Day: Codable {
     let key: String?
     let date: String?
-    var doing: [String] = []
+    var doingList: [String] = []
     
     init(key: String?, date: String?) {
         self.key = key
@@ -18,7 +18,7 @@ class Day: Codable {
     }
     
     func addDoing(Doing:String) {
-        doing.append(Doing)
+        doingList.append(Doing)
     }
     
     func outputDate() -> String {
@@ -27,8 +27,8 @@ class Day: Codable {
     
     func outputDoing() -> String {
         var List: String = ""
-        for i in 0..<doing.count {
-            List += (doing[i] + "\n")
+        for i in 0..<doingList.count {
+            List += (doingList[i] + "\n")
         }
         return List
     }
