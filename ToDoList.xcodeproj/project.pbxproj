@@ -15,6 +15,7 @@
 		6137662029928F09007BF03F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6137661E29928F09007BF03F /* LaunchScreen.storyboard */; };
 		613817CA29C0345D0066C77D /* DoingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613817C929C0345D0066C77D /* DoingCell.swift */; };
 		61B6F7A229B8712900E82B41 /* AddDoing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B6F7A129B8712900E82B41 /* AddDoing.swift */; };
+		61B966D629C1EA84008EA0CA /* DoingUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B966D529C1EA84008EA0CA /* DoingUpdate.swift */; };
 		61BC74172993D27100AFE7D9 /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61BC74162993D27100AFE7D9 /* Day.swift */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		6137662129928F09007BF03F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		613817C929C0345D0066C77D /* DoingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingCell.swift; sourceTree = "<group>"; };
 		61B6F7A129B8712900E82B41 /* AddDoing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDoing.swift; sourceTree = "<group>"; };
+		61B966D529C1EA84008EA0CA /* DoingUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingUpdate.swift; sourceTree = "<group>"; };
 		61BC74162993D27100AFE7D9 /* Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -62,6 +64,7 @@
 		6137661229928F08007BF03F /* ToDoList */ = {
 			isa = PBXGroup;
 			children = (
+				61B966D529C1EA84008EA0CA /* DoingUpdate.swift */,
 				6137661329928F08007BF03F /* AppDelegate.swift */,
 				6137661529928F08007BF03F /* SceneDelegate.swift */,
 				6137661729928F08007BF03F /* ViewController.swift */,
@@ -152,6 +155,7 @@
 				61BC74172993D27100AFE7D9 /* Day.swift in Sources */,
 				6137661629928F08007BF03F /* SceneDelegate.swift in Sources */,
 				61B6F7A229B8712900E82B41 /* AddDoing.swift in Sources */,
+				61B966D629C1EA84008EA0CA /* DoingUpdate.swift in Sources */,
 				613817CA29C0345D0066C77D /* DoingCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

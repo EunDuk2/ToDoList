@@ -27,7 +27,7 @@ class AddDoing : UIViewController, UITableViewDataSource, UITableViewDelegate {
 
         DatePicker_()
         outputDoing()
-        
+        table.reloadData()
     }
     func test() {
         //var test:String?
@@ -147,6 +147,17 @@ class AddDoing : UIViewController, UITableViewDataSource, UITableViewDelegate {
         
         doing[checkKey()].doingList.insert(itemToMove, at: (to as NSIndexPath).row)
         
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let du = self.storyboard?.instantiateViewController(withIdentifier: "DoingUpdate") as? DoingUpdate else {
+                    return
+                }
+        du.index = indexPath.row
+        du.date = checkKey()
+        
+        du.modalPresentationStyle = .fullScreen
+        self.present(du, animated: true)
     }
     
 
