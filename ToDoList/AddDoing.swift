@@ -24,11 +24,12 @@ class AddDoing : UIViewController, UITableViewDataSource, UITableViewDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-
         DatePicker_()
         outputDoing()
         table.reloadData()
+        
     }
+    
     func test() {
         //var test:String?
         var test1:String = ""
@@ -98,10 +99,10 @@ class AddDoing : UIViewController, UITableViewDataSource, UITableViewDelegate {
         }
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        // #warning Incomplete implementation, return the number of sections
+//        return 1
+//    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         doing = getDoing()
@@ -158,6 +159,10 @@ class AddDoing : UIViewController, UITableViewDataSource, UITableViewDelegate {
         
         du.modalPresentationStyle = .fullScreen
         self.present(du, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
     
 

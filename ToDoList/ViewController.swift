@@ -7,7 +7,8 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
     var doing:[Day] = []
     let ud = UserDefaults.standard
     var formatter = DateFormatter()
@@ -18,6 +19,7 @@ class ViewController: UIViewController {
     
     @IBOutlet var lblToDo: UILabel!
     @IBOutlet var lblToDo2: UILabel!
+    @IBOutlet var table: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +31,22 @@ class ViewController: UIViewController {
         
         todayDoing()
         
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        doing = getDoing()
+        NSLog(doing[index].doingList[0] + "test")
+            return doing[index].doingList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let row = self.doing[index].doingList[indexPath.row]
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MainDoingCell") as! MainDoingCell
+        
+        cell.lblDoing?.text = row
+        NSLog("test")
+        return cell
     }
     
     func todayDoing() {
@@ -73,6 +91,7 @@ class ViewController: UIViewController {
         if(index > 0) {
             index -= 1
             outputDay(i: index)
+            table.reloadData()
         }
         
     }
@@ -82,6 +101,7 @@ class ViewController: UIViewController {
         if(index < doing.count-1) {
             index += 1
             outputDay(i: index)
+            table.reloadData()
         }
     }
     
