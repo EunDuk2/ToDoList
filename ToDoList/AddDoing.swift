@@ -147,7 +147,7 @@ class AddDoing : UIViewController, UITableViewDataSource, UITableViewDelegate {
         doing[checkKey()].doingList.remove(at: (fromIndexPath as NSIndexPath).row)
         
         doing[checkKey()].doingList.insert(itemToMove, at: (to as NSIndexPath).row)
-        
+        ud.set(try? PropertyListEncoder().encode(doing), forKey: "day")
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

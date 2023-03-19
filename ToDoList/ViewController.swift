@@ -30,7 +30,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewWillAppear(_ animated: Bool) {
         
         todayDoing()
-        
+        table.reloadData()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -62,6 +62,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if(todayCheckKey() != -1) {
             index = todayCheckKey()
             outputDay(i: index)
+        } else {
+            formatter.dateFormat = "MM월 dd일"
+            lblToDo.text = formatter.string(from: Date())
         }
     }
     
@@ -87,7 +90,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             lblToDo.text = doing[i].outputDate()
             lblToDo2.text = doing[i].outputDoing()
         } else {
-            lblToDo.text = today
+            lblToDo2.text = ""
         }
     }
     
