@@ -203,7 +203,6 @@ class AddDoing : UIViewController, UITableViewDataSource, UITableViewDelegate {
             table.setEditing(true, animated: true)
         }
     }
-    var hidden1 = false
 
     override func setEditing(_ editing: Bool, animated: Bool) {
             super.setEditing(editing, animated: animated)
@@ -212,11 +211,9 @@ class AddDoing : UIViewController, UITableViewDataSource, UITableViewDelegate {
             if self.table.isEditing {
 
                         self.table.setEditing(false, animated: true)
-                hidden1 = false
                     } else {
 
                         self.table.setEditing(true, animated: true)
-                    hidden1 = true
                     }
             self.table.reloadData()
 

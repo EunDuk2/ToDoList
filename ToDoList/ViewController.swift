@@ -35,8 +35,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         doing = getDoing()
-        NSLog(doing[index].doingList[0] + "test")
+        
+        if(doing.count != 0) {
             return doing[index].doingList.count
+        } else {
+            return 0
+        }
+            
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -45,7 +50,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let cell = tableView.dequeueReusableCell(withIdentifier: "MainDoingCell") as! MainDoingCell
         
         cell.lblDoing?.text = row
-        NSLog("test")
+        
         return cell
     }
     
@@ -82,7 +87,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             lblToDo.text = doing[i].outputDate()
             lblToDo2.text = doing[i].outputDoing()
         } else {
-            lblToDo2.text = ""
+            lblToDo.text = today
         }
     }
     
