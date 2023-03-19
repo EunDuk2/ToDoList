@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, TableViewCellDelegate {
     
     var doing:[Day] = []
     let ud = UserDefaults.standard
@@ -33,6 +33,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         table.reloadData()
     }
     
+    func didTapButton(index: Int?, button: UIButton?, isCheck: Bool?) {
+        //NSLog(button?.title(for: .normal))
+        if(button?.title(for: .normal) == "🟩") {
+            button?.setTitle("✅", for: .normal)
+            
+        } else {
+            button?.setTitle("🟩", for: .normal)
+        }
+        
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         doing = getDoing()
         
@@ -49,9 +60,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "MainDoingCell") as! MainDoingCell
         
+        cell.index = indexPath.row
+        
         cell.lblDoing?.text = row
+        cell.delegate = self
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
     }
     
     func todayDoing() {
@@ -115,6 +133,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBAction func onToday(_ sender: Any) {
         todayDoing()
+        table.reloadData()
     }
     
     
