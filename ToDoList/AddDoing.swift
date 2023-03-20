@@ -13,7 +13,6 @@ class AddDoing : UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet var table: UITableView!
     @IBOutlet var txtDoing: UITextField!
     @IBOutlet var datePick: UIDatePicker!
-    @IBOutlet var lblList: UILabel!
     
     override func viewDidLoad() {
         let dateFormat = DateFormatter()
@@ -25,22 +24,8 @@ class AddDoing : UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         DatePicker_()
-        outputDoing()
         table.reloadData()
         
-    }
-    
-    func test() {
-        //var test:String?
-        var test1:String = ""
-        //test = String(doing.count)
-//        if let tst = test {
-//            lblList.text = tst
-//        }
-        for i in 0..<doing.count {
-            test1 += doing[i].key!
-        }
-        lblList.text = test1
     }
     
     func checkKey() -> Int {
@@ -58,18 +43,6 @@ class AddDoing : UIViewController, UITableViewDataSource, UITableViewDelegate {
                     return loadDoing
     }
     
-    func outputDoing() {
-        doing = getDoing()
-        
-        if(checkKey() != -1) {
-            lblList.text = doing[checkKey()].outputDoing()
-        } else {
-            lblList.text = ""
-        }
-
-        //test()
-    }
-    
     func sortDoing() {
         doing.sort(by: {$0.key! < $1.key!})
     }
@@ -85,7 +58,6 @@ class AddDoing : UIViewController, UITableViewDataSource, UITableViewDelegate {
         dateFormat.dateFormat = "yyyyMMdd"
         dateKey = dateFormat.string(from: DatePick.date)
 
-        outputDoing()
         table.reloadData()
     }
     
@@ -127,7 +99,8 @@ class AddDoing : UIViewController, UITableViewDataSource, UITableViewDelegate {
         if editingStyle == .delete {
             // Delete the row from the data source
             doing[checkKey()].doingList.remove(at: (indexPath as NSIndexPath).row)
-            //itemsImageFile.remove(at: (indexPath as NSIndexPath).row)
+            doing[checkKey()].checkButton.remove(at: (indexPath as NSIndexPath).row)
+            
             ud.set(try? PropertyListEncoder().encode(doing), forKey: "day")
 
             tableView.deleteRows(at: [indexPath], with: .fade)
@@ -181,7 +154,6 @@ class AddDoing : UIViewController, UITableViewDataSource, UITableViewDelegate {
         sortDoing()
         ud.set(try? PropertyListEncoder().encode(doing), forKey: "day")
         
-        outputDoing()
         table.reloadData()
         
         txtDoing.text = ""
@@ -193,7 +165,6 @@ class AddDoing : UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBAction func arrInit(_ sender: Any) {
         ud.removeObject(forKey: "day")
-        lblList.text = ""
     }
     
     @IBAction func edit(_ sender: UIBarButtonItem) {

@@ -18,7 +18,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var today:String?
     
     @IBOutlet var lblToDo: UILabel!
-    @IBOutlet var lblToDo2: UILabel!
     @IBOutlet var table: UITableView!
     
     override func viewDidLoad() {
@@ -109,9 +108,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         if(todayCheckKey() != -1) {
             lblToDo.text = doing[i].outputDate()
-            lblToDo2.text = doing[i].outputDoing()
         } else {
-            lblToDo2.text = ""
+            
         }
     }
     
