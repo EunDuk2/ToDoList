@@ -11,6 +11,7 @@ class Day: Codable {
     let key: String?
     let date: String?
     var doingList: [String] = []
+    var checkButton: [String] = []
     
     init(key: String?, date: String?) {
         self.key = key
@@ -19,6 +20,10 @@ class Day: Codable {
     
     func addDoing(Doing:String) {
         doingList.append(Doing)
+    }
+    
+    func addButton(ButtonText: String) {
+        checkButton.append(ButtonText)
     }
     
     func outputDate() -> String {
@@ -32,6 +37,5 @@ class Day: Codable {
         }
         return List
     }
-    
     
 }

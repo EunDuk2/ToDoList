@@ -33,15 +33,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         table.reloadData()
     }
     
-    func didTapButton(index: Int?, button: UIButton?, isCheck: Bool?) {
+    func didTapButton(cellIndex: Int?, button: UIButton?) {
         //NSLog(button?.title(for: .normal))
         if(button?.title(for: .normal) == "🟩") {
             button?.setTitle("✅", for: .normal)
-            
+            doing[index].checkButton[cellIndex!] = "✅"
         } else {
             button?.setTitle("🟩", for: .normal)
+            doing[index].checkButton[cellIndex!] = "🟩"
         }
-        
+        ud.set(try? PropertyListEncoder().encode(doing), forKey: "day")
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -56,13 +57,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let row = self.doing[index].doingList[indexPath.row]
+        let row1 = self.doing[index].checkButton[indexPath.row]
+        let row2 = self.doing[index].doingList[indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "MainDoingCell") as! MainDoingCell
         
         cell.index = indexPath.row
+        cell.btnCheck?.setTitle(row1, for: .normal)
+        cell.lblDoing?.text = row2
         
-        cell.lblDoing?.text = row
         cell.delegate = self
         
         return cell

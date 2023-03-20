@@ -1,12 +1,11 @@
 import UIKit
 
 protocol TableViewCellDelegate: AnyObject {
-    func didTapButton(index: Int?, button: UIButton?, isCheck: Bool?)
+    func didTapButton(cellIndex: Int?, button: UIButton?)
 }
 
 class MainDoingCell: UITableViewCell {
     var index: Int?
-    var isCheck: Bool?
     
     weak var delegate: TableViewCellDelegate?
     
@@ -14,7 +13,7 @@ class MainDoingCell: UITableViewCell {
     @IBOutlet var lblDoing: UILabel!
     
     @IBAction func onCheckButton(_ sender: UIButton) {
-        self.delegate?.didTapButton(index: index, button: btnCheck, isCheck: isCheck)
+        self.delegate?.didTapButton(cellIndex: index, button: btnCheck)
     }
     
 }

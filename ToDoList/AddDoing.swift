@@ -171,9 +171,11 @@ class AddDoing : UIViewController, UITableViewDataSource, UITableViewDelegate {
         let i = checkKey()
         if (i != -1) {
             doing[i].addDoing(Doing: txtDoing.text!)
+            doing[i].addButton(ButtonText: "🟩")
         } else if (i == -1) {
             doing.append(Day(key: dateKey, date: stringDate))
             doing[doing.count-1].addDoing(Doing: txtDoing.text!)
+            doing[doing.count-1].addButton(ButtonText: "🟩")
         }
         
         sortDoing()
