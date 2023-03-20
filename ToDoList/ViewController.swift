@@ -33,14 +33,39 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func didTapButton(cellIndex: Int?, button: UIButton?) {
-        //NSLog(button?.title(for: .normal))
-        if(button?.title(for: .normal) == "🟩") {
-            button?.setTitle("✅", for: .normal)
-            doing[index].checkButton[cellIndex!] = "✅"
-        } else {
-            button?.setTitle("🟩", for: .normal)
-            doing[index].checkButton[cellIndex!] = "🟩"
+        // 메시지창 객체 생성
+        let alert = UIAlertController(title: "선택", message: "체크여부를 선택해주세요", preferredStyle: .actionSheet)
+
+        let clear = UIAlertAction(title: "✅ 완료", style: .default) { (_) in
+            if(button?.title(for: .normal) != "✅") {
+                button?.setTitle("✅", for: .normal)
+                self.doing[self.index].checkButton[cellIndex!] = "✅"
+            }
         }
+        
+        let delay = UIAlertAction(title: "💬 미루기", style: .destructive) { (_) in
+            if(button?.title(for: .normal) != "💬") {
+                button?.setTitle("💬", for: .normal)
+                self.doing[self.index].checkButton[cellIndex!] = "💬"
+            }
+        }
+        
+        let origin = UIAlertAction(title: "🟩 원래대로", style: .default) { (_) in
+            if(button?.title(for: .normal) != "🟩") {
+                button?.setTitle("🟩", for: .normal)
+                self.doing[self.index].checkButton[cellIndex!] = "🟩"
+            }
+        }
+        
+        let back = UIAlertAction(title: "돌아가기", style: .cancel) { (_) in }
+        
+        alert.addAction(clear)
+        alert.addAction(delay)
+        alert.addAction(origin)
+        alert.addAction(back)
+        
+        self.present(alert, animated: true)
+        
         ud.set(try? PropertyListEncoder().encode(doing), forKey: "day")
     }
     
