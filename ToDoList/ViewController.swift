@@ -43,10 +43,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
         }
         
-        let delay = UIAlertAction(title: "💬 미루기", style: .destructive) { (_) in
+        let delay = UIAlertAction(title: "💬 미루기", style: .default) { (_) in
             if(button?.title(for: .normal) != "💬") {
                 button?.setTitle("💬", for: .normal)
                 self.doing[self.index].checkButton[cellIndex!] = "💬"
+            }
+        }
+        
+        let cancel = UIAlertAction(title: "❎ 취소", style: .destructive) { (_) in
+            if(button?.title(for: .normal) != "❎") {
+                button?.setTitle("❎", for: .normal)
+                self.doing[self.index].checkButton[cellIndex!] = "❎"
             }
         }
         
@@ -61,6 +68,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         alert.addAction(clear)
         alert.addAction(delay)
+        alert.addAction(cancel)
         alert.addAction(origin)
         alert.addAction(back)
         
