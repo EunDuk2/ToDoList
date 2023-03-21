@@ -35,7 +35,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func didTapButton(cellIndex: Int?, button: UIButton?) {
         // 메시지창 객체 생성
         let alert = UIAlertController(title: "선택", message: "체크여부를 선택해주세요", preferredStyle: .actionSheet)
+        let addAlert = UIAlertController(title: "미루기", message: "+ 다음날에 추가되었습니다.", preferredStyle: .alert)
 
+        if(button?.title(for: .normal) != "💬") {
+            
+        }
         let clear = UIAlertAction(title: "✅ 완료", style: .default) { (_) in
             if(button?.title(for: .normal) != "✅") {
                 button?.setTitle("✅", for: .normal)
@@ -50,6 +54,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 let delayDoing = self.doing[self.index].doingList[cellIndex!]
                 
                 self.addTomorrow(delayDoing: delayDoing)
+                self.present(addAlert, animated: true)
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
+                    self.dismiss(animated: true)
+                })
             }
         }
         
