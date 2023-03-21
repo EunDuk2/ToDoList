@@ -23,7 +23,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-      
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,6 +47,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             if(button?.title(for: .normal) != "💬") {
                 button?.setTitle("💬", for: .normal)
                 self.doing[self.index].checkButton[cellIndex!] = "💬"
+                let delayDoing = self.doing[self.index].doingList[cellIndex!]
+                
+                self.addTomorrow(delayDoing: delayDoing)
             }
         }
         
@@ -75,6 +78,64 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.present(alert, animated: true)
         
         ud.set(try? PropertyListEncoder().encode(doing), forKey: "day")
+    }
+    
+    func addTomorrow(delayDoing: String) {
+        // 보고 있는 날짜의 날짜 키를 가져와보자 일단
+        let nowKey = doing[index].key
+        // 가져왔으니까 string인 키를 date로 바꾸고
+        let now = nowKey?.toDate()?.timeIntervalSince1970
+        // 다음날 계산
+        
+        
+        // 지금은 오늘 날짜 가져와서 다음날 계산한 거임
+        // 지금 보고 있는 날짜에 다음날 계산해서 추가해야됨
+        // 다음날 doing 존재하는지 검사하기
+        
+        let tomorrowKey: String?
+        let tomorrowDate: String?
+//
+//        let now = Date().timeIntervalSince1970
+//
+        let date: DateFormatter = {
+            let df = DateFormatter()
+            df.locale = Locale(identifier: "ko_KR")
+            df.timeZone = TimeZone(abbreviation: "KST")
+            df.dateFormat = "yyyyMMdd"
+            return df
+        }()
+
+        let today = Int(now!) + 86400
+        let timeInterval = TimeInterval(today)
+        let cellTxt = Date(timeIntervalSince1970: timeInterval)
+
+        //lblToDo.text = "\(date.string(from: cellTxt))"
+        tomorrowKey = String(date.string(from: cellTxt))
+
+        date.dateFormat = "MM월 dd일"
+        tomorrowDate = String(date.string(from: cellTxt))
+        
+        let i = checkTomorrow(dateKey: tomorrowKey!)
+        if (i != -1) {
+            doing[i].addDoing(Doing: delayDoing)
+            doing[i].addButton(ButtonText: "🟩")
+        } else if (i == -1) {
+            doing.append(Day(key: tomorrowKey, date: tomorrowDate))
+            doing[index+1].addDoing(Doing: delayDoing)
+            doing[index+1].addButton(ButtonText: "🟩")
+        }
+        doing.sort(by: {$0.key! < $1.key!})
+        
+        ud.set(try? PropertyListEncoder().encode(doing), forKey: "day")
+    }
+    
+    func checkTomorrow(dateKey: String) -> Int {
+        for i in 0..<doing.count {
+            if(doing[i].key == dateKey) {
+                return i
+            }
+        }
+        return -1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -173,5 +234,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
 }
 
+extension String {
+    func toDate() -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyyMMdd"
+        dateFormatter.timeZone = TimeZone(identifier: "UTC")
+        if let date = dateFormatter.date(from: self) {
+            return date
+        } else {
+            return nil
+        }
+    }
+}
 
 
