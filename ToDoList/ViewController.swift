@@ -32,22 +32,50 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         table.reloadData()
     }
     
+    func delayDoingCheck(cellIndex: Int?, button: UIButton?) {
+        let addAlert = UIAlertController(title: "미루기 취소", message: "- 다음날에서 삭제되었습니다.", preferredStyle: .alert)
+        
+        if(button?.title(for: .normal) == "💬") {
+            // 누른 버튼의 레이블 값 =
+            let temp = doing[index].doingList[cellIndex!]
+            // temp랑 다음날 일정 리스트랑 비교
+            for i in 0..<doing[index+1].doingList.count {
+                // 같은거 있으면 그 일정 삭제
+                if(temp == doing[index+1].doingList[i]) {
+                    doing[index+1].doingList.remove(at: i)
+                }
+            }
+            // 다음날에 doing없으면 해당 객체 삭제
+            if(doing[index+1].doingList.count == 0) {
+                doing.remove(at: index+1)
+            }
+            self.present(addAlert, animated: true)
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
+                self.dismiss(animated: true)
+            })
+        }
+    }
+    
     func didTapButton(cellIndex: Int?, button: UIButton?) {
         // 메시지창 객체 생성
         let alert = UIAlertController(title: "선택", message: "체크여부를 선택해주세요", preferredStyle: .actionSheet)
         let addAlert = UIAlertController(title: "미루기", message: "+ 다음날에 추가되었습니다.", preferredStyle: .alert)
 
-        if(button?.title(for: .normal) != "💬") {
-            
-        }
         let clear = UIAlertAction(title: "✅ 완료", style: .default) { (_) in
+        
+            self.delayDoingCheck(cellIndex: cellIndex, button: button)
+            
             if(button?.title(for: .normal) != "✅") {
                 button?.setTitle("✅", for: .normal)
                 self.doing[self.index].checkButton[cellIndex!] = "✅"
             }
+            self.ud.set(try? PropertyListEncoder().encode(self.doing), forKey: "day")
         }
         
         let delay = UIAlertAction(title: "💬 미루기", style: .default) { (_) in
+            
+            self.delayDoingCheck(cellIndex: cellIndex, button: button)
+            
             if(button?.title(for: .normal) != "💬") {
                 button?.setTitle("💬", for: .normal)
                 self.doing[self.index].checkButton[cellIndex!] = "💬"
@@ -59,20 +87,29 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     self.dismiss(animated: true)
                 })
             }
+            self.ud.set(try? PropertyListEncoder().encode(self.doing), forKey: "day")
         }
         
         let cancel = UIAlertAction(title: "❎ 취소", style: .destructive) { (_) in
+            
+            self.delayDoingCheck(cellIndex: cellIndex, button: button)
+            
             if(button?.title(for: .normal) != "❎") {
                 button?.setTitle("❎", for: .normal)
                 self.doing[self.index].checkButton[cellIndex!] = "❎"
             }
+            self.ud.set(try? PropertyListEncoder().encode(self.doing), forKey: "day")
         }
         
         let origin = UIAlertAction(title: "🟩 원래대로", style: .default) { (_) in
+            
+            self.delayDoingCheck(cellIndex: cellIndex, button: button)
+            
             if(button?.title(for: .normal) != "🟩") {
                 button?.setTitle("🟩", for: .normal)
                 self.doing[self.index].checkButton[cellIndex!] = "🟩"
             }
+            self.ud.set(try? PropertyListEncoder().encode(self.doing), forKey: "day")
         }
         
         let back = UIAlertAction(title: "돌아가기", style: .cancel) { (_) in }
@@ -83,9 +120,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         alert.addAction(origin)
         alert.addAction(back)
         
-        self.present(alert, animated: true)
         
-        ud.set(try? PropertyListEncoder().encode(doing), forKey: "day")
+        self.present(alert, animated: true)
     }
     
     func addTomorrow(delayDoing: String) {
