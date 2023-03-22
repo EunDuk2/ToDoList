@@ -35,4 +35,8 @@ class DoingUpdate: UIViewController {
         
         self.presentingViewController?.dismiss(animated: true)
     }
+    
+    @IBAction func onClose(_ sender: Any) {
+        self.presentingViewController?.dismiss(animated: true)
+    }
 }

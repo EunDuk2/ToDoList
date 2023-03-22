@@ -15,6 +15,8 @@ class AddDoing : UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet var datePick: UIDatePicker!
     
     override func viewDidLoad() {
+        txtDoing.delegate = self
+        
         let dateFormat = DateFormatter()
         dateFormat.dateFormat = "MM월 dd일"
         
@@ -192,4 +194,15 @@ class AddDoing : UIViewController, UITableViewDataSource, UITableViewDelegate {
 
         }
     
+}
+
+extension AddDoing: UITextFieldDelegate {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder() // TextField 비활성화
+        return true
+    }
 }
