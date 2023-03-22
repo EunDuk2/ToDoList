@@ -16,6 +16,7 @@ class AddDoing : UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet var btnAdd: UIButton!
     
     override func viewDidLoad() {
+        //arrInit()
         styleControll()
         setKeyboardObserver()
         txtDoing.delegate = self
@@ -114,6 +115,10 @@ class AddDoing : UIViewController, UITableViewDataSource, UITableViewDelegate {
             doing[checkKey()].doingList.remove(at: (indexPath as NSIndexPath).row)
             doing[checkKey()].checkButton.remove(at: (indexPath as NSIndexPath).row)
             
+            if(doing[checkKey()].doingList.count == 0) {
+                doing.remove(at: checkKey())
+            }
+            
             ud.set(try? PropertyListEncoder().encode(doing), forKey: "day")
 
             tableView.deleteRows(at: [indexPath], with: .fade)
@@ -176,7 +181,7 @@ class AddDoing : UIViewController, UITableViewDataSource, UITableViewDelegate {
         self.presentingViewController?.dismiss(animated: true)
     }
     
-    @IBAction func arrInit(_ sender: Any) {
+    func arrInit() {
         ud.removeObject(forKey: "day")
     }
     
