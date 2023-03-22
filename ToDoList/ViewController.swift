@@ -56,6 +56,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
+    func sortDoing() {
+        doing.sort(by: {$0.key! < $1.key!})
+    }
+    
     func didTapButton(cellIndex: Int?, button: UIButton?) {
         // 메시지창 객체 생성
         let alert = UIAlertController(title: "선택", message: "체크여부를 선택해주세요", preferredStyle: .actionSheet)
@@ -81,13 +85,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 self.doing[self.index].checkButton[cellIndex!] = "💬"
                 let delayDoing = self.doing[self.index].doingList[cellIndex!]
                 
+                self.ud.set(try? PropertyListEncoder().encode(self.doing), forKey: "day")
+                
                 self.addTomorrow(delayDoing: delayDoing)
+                
                 self.present(addAlert, animated: true)
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
                     self.dismiss(animated: true)
                 })
             }
-            self.ud.set(try? PropertyListEncoder().encode(self.doing), forKey: "day")
         }
         
         let cancel = UIAlertAction(title: "❎ 취소", style: .destructive) { (_) in
@@ -125,16 +131,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func addTomorrow(delayDoing: String) {
+        doing = getDoing()
         // 보고 있는 날짜의 날짜 키를 가져와보자 일단
         let nowKey = doing[index].key
         // 가져왔으니까 string인 키를 date로 바꾸고
         let now = nowKey?.toDate()?.timeIntervalSince1970
         // 다음날 계산
-        
-        
-        // 지금은 오늘 날짜 가져와서 다음날 계산한 거임
-        // 지금 보고 있는 날짜에 다음날 계산해서 추가해야됨
-        // 다음날 doing 존재하는지 검사하기
         
         let tomorrowKey: String?
         let tomorrowDate: String?
@@ -165,10 +167,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             doing[i].addButton(ButtonText: "🟩")
         } else if (i == -1) {
             doing.append(Day(key: tomorrowKey, date: tomorrowDate))
+            sortDoing()
             doing[index+1].addDoing(Doing: delayDoing)
             doing[index+1].addButton(ButtonText: "🟩")
         }
-        doing.sort(by: {$0.key! < $1.key!})
+        sortDoing()
         
         ud.set(try? PropertyListEncoder().encode(doing), forKey: "day")
     }
