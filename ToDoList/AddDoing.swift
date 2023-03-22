@@ -13,8 +13,10 @@ class AddDoing : UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet var table: UITableView!
     @IBOutlet var txtDoing: UITextField!
     @IBOutlet var datePick: UIDatePicker!
+    @IBOutlet var btnAdd: UIButton!
     
     override func viewDidLoad() {
+        styleControll()
         setKeyboardObserver()
         txtDoing.delegate = self
         
@@ -29,6 +31,13 @@ class AddDoing : UIViewController, UITableViewDataSource, UITableViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         DatePicker_()
         table.reloadData()
+        
+    }
+    
+    func styleControll() {
+        txtDoing.layer.cornerRadius = 18
+        txtDoing.layer.borderWidth = 1
+        txtDoing.layer.borderColor = UIColor.black.cgColor
         
     }
     
