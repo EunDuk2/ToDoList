@@ -126,7 +126,7 @@
                                 <rect key="frame" x="169" y="732" width="54" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="확인"/>
+                                <buttonConfiguration key="configuration" style="plain" title="완료"/>
                                 <connections>
                                     <action selector="Submit:" destination="OBU-2A-JfA" eventType="touchUpInside" id="2a4-gm-FNV"/>
                                 </connections>
@@ -135,7 +135,7 @@
                                 <rect key="frame" x="16" y="690" width="266" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done" textContentType="username"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o0H-bH-COC">
                                 <rect key="frame" x="307" y="690" width="54" height="35"/>
